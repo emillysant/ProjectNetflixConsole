@@ -1,0 +1,15 @@
+version: '3.7'
+
+
+services:
+  db:
+    container_name: netflix_postgres
+    image: postgres:12
+    environment:
+      POSTGRES_DB: netflix
+      POSTGRES_USER: netflix_user
+      POSTGRES_PASSWORD: netflix
+    volumes:
+      - ./data/netflix.sql:/docker-entrypoint-initdb.d/netflix.sql
+    ports:
+      - 5432:5432
