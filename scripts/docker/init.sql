@@ -1,0 +1,39 @@
+CREATE TABLE accounts (
+    id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+    email TEXT NOT NULL,
+    password_hash TEXT NOT NULL,
+    created_at TIMESTAMP DEFAULT (NOW() AT TIME ZONE 'UTC')
+);
+
+CREATE TABLE account_profiles (
+    id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    account INTEGER NOT NULL REFERENCES accounts,
+    name TEXT NOT NULL
+);
+
+CREATE TABLE films (
+    id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    title TEXT NOT NULL
+);
+
+CREATE TABLE series (
+    id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    title TEXT NOT NULL
+);
+
+CREATE TABLE series_seasons (
+    id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    series INTEGER NOT NULL REFERENCES series,
+    order_number INTEGER NOT NULL,
+
+    CONSTRAINT series_number UNIQUE (series, order_number)
+);
+
+CREATE TABLE series_episodes (
+    id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    season INTEGER NOT NULL REFERENCES series_seasons,
+    order_number INTEGER NOT NULL,
+    title TEXT NOT NULL,
+
+    CONSTRAINT season_number UNIQUE (season, order_number)
+);
