@@ -12,5 +12,14 @@
         <property name="hibernate.connection.pool_size">1</property>
         <property name="hibernate.current_session_context_class">thread</property>
         <property name="hibernate.show_sql">true</property>
+
+        <mapping class="org.example.entity.Account"/>
+        <mapping class="org.example.entity.Category"/>
+        <mapping class="org.example.entity.Episode"/>
+        <mapping class="org.example.entity.Movie"/>
+        <mapping class="org.example.entity.Profile"/>
+        <mapping class="org.example.entity.Series"/>
+        <mapping class="org.example.entity.WatchedMovie"/>
+        <mapping class="org.example.entity.WatchedSeries"/>
     </session-factory>
 </hibernate-configuration>
