@@ -5,12 +5,11 @@ import jakarta.persistence.*;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "films")
-public class Movie {
+@Table(name = "series")
+public class Series {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-
     private String title;
     @Column(name = "release_date")
     private LocalDate releaseDate;

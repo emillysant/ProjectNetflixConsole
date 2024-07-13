@@ -1,20 +1,15 @@
 package org.example.entity;
 
+import jakarta.persistence.*;
 
-//@Table(name = "account_profiles")
+@Entity
+@Table(name = "account_profiles")
 public class Profile {
-
-    //    @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private int account;
     private String name;
-
-    public Profile(int id, int account, String name) {
-        this.id = id;
-        this.account = account;
-        this.name = name;
-    }
 
     public int getId() {
         return id;
