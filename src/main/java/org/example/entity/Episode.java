@@ -5,8 +5,8 @@ import jakarta.persistence.*;
 @Entity
 @Table(name = "series_episodes")
 public class Episode {
-        @Id
-        @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private int season;
     @Column(name = "order_number")

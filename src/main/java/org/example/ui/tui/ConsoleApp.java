@@ -1,6 +1,7 @@
 package org.example.ui.tui;
 
 import org.example.App;
+import org.example.entity.Profile;
 
 public class ConsoleApp {
     private final App app;
@@ -30,6 +31,7 @@ public class ConsoleApp {
                 case LOGIN -> loginScreen();
                 case REGISTER -> registerScreen();
                 case PROFILE_PICKER -> profilePickerScreen();
+                case CREATE_PROFILE -> createProfileScreen();
                 case MAIN_MENU -> mainMenuScreen();
                 case LIST_MOVIES -> listMoviesScreen();
                 case LIST_SERIES -> listSeriesScreen();
@@ -92,17 +94,40 @@ public class ConsoleApp {
         for (int i = 0; i < profiles.size(); i++) {
             System.out.printf("%d. %s\n", i + 1, profiles.get(i).getName());
         }
+        var createNewProfileOption = profiles.size() + 1;
+        System.out.printf("%d. Create new profile\n", createNewProfileOption);
         System.out.println("0. Logout\n");
 
-        int choice = ConsoleUtils.getChoice(0, profiles.size());
+        int choice = ConsoleUtils.getChoice(profiles.size() + 1);
         if (choice == 0) {
             app.logout();
             setCurrentScreen(ConsoleAppScreen.LOGIN);
+            return;
+        } else if (choice == createNewProfileOption) {
+            setCurrentScreen(ConsoleAppScreen.CREATE_PROFILE);
+            return;
         }
+
         var chosenProfile = profiles.get(choice - 1);
 
         app.setCurrentProfile(chosenProfile);
         setCurrentScreen(ConsoleAppScreen.MAIN_MENU);
+    }
+
+    private void createProfileScreen() {
+        for (; ; ) {
+            var profileName = ConsoleUtils.getEntry("Profile name");
+
+            var profile = new Profile();
+            profile.setName(profileName);
+            if (app.createProfile(profile)) {
+                System.out.println("Profile created successfully!");
+                setCurrentScreen(ConsoleAppScreen.PROFILE_PICKER);
+                return;
+            } else {
+                System.out.println("Profile already exists.");
+            }
+        }
     }
 
     private void mainMenuScreen() {
@@ -137,7 +162,7 @@ public class ConsoleApp {
             System.out.printf("%d. %s (%d)\n", i + 1, movie.getTitle(), movie.getReleaseYear());
         }
 
-        setCurrentScreen(null);
+        setCurrentScreen(ConsoleAppScreen.MAIN_MENU);
     }
 
     private void listSeriesScreen() {
@@ -148,7 +173,7 @@ public class ConsoleApp {
             System.out.printf("%d. %s (%d)\n", i + 1, series1.getTitle(), series1.getReleaseYear());
         }
 
-        setCurrentScreen(null);
+        setCurrentScreen(ConsoleAppScreen.MAIN_MENU);
     }
 
     private void searchMoviesScreen() {
@@ -178,7 +203,21 @@ public class ConsoleApp {
     }
 
     private void listMoviesByCategoryScreen() {
-        var movies = app.getAllMovies();
+        var categories = app.getAllCategories();
+        for (int i = 0; i < categories.size(); i++) {
+            System.out.printf("%d. %s\n", i + 1, categories.get(i).getName());
+        }
+        System.out.println("0. Back");
+
+        var choice = ConsoleUtils.getChoice(categories.size());
+        if (choice == 0) {
+            setCurrentScreen(ConsoleAppScreen.MAIN_MENU);
+            return;
+        }
+
+        var chosenCategory = categories.get(choice - 1);
+
+        var movies = app.getMoviesByCategory(chosenCategory);
 
         for (int i = 0; i < movies.size(); i++) {
             var movie = movies.get(i);
@@ -189,7 +228,21 @@ public class ConsoleApp {
     }
 
     private void listSeriesByCategoryScreen() {
-        var series = app.getAllSeries();
+        var categories = app.getAllCategories();
+        for (int i = 0; i < categories.size(); i++) {
+            System.out.printf("%d. %s\n", i + 1, categories.get(i).getName());
+        }
+        System.out.println("0. Back");
+
+        var choice = ConsoleUtils.getChoice(categories.size());
+        if (choice == 0) {
+            setCurrentScreen(ConsoleAppScreen.MAIN_MENU);
+            return;
+        }
+
+        var chosenCategory = categories.get(choice - 1);
+
+        var series = app.getSeriesByCategory(chosenCategory);
 
         for (int i = 0; i < series.size(); i++) {
             var series1 = series.get(i);
@@ -200,13 +253,29 @@ public class ConsoleApp {
     }
 
     private void editProfileScreen() {
-        System.out.println("editProfileScreen");
+        var newName = ConsoleUtils.getEntry("New name");
+        var currentProfile = app.getCurrentProfile();
+        currentProfile.setName(newName);
+        boolean updated = app.updateProfile(currentProfile);
+        if (updated) {
+            System.out.println("Name Updated");
+        } else {
+            System.out.println("Fail to Updated");
+        }
         setCurrentScreen(ConsoleAppScreen.MAIN_MENU);
     }
 
     private void deleteProfileScreen() {
-        // XXX: Must have confirmation dialog before actually deleting it
-        System.out.println("deleteProfileScreen");
-        setCurrentScreen(ConsoleAppScreen.MAIN_MENU);
+        // Function<String, String> yesNoValidator =
+        String confirmation = ConsoleUtils.getEntry("Are you sure you want to delete your profile? (Y/N)").toUpperCase();
+        if (confirmation.equals("Y")) {
+            boolean deleted = app.deleteProfile(app.getCurrentProfile());
+            if (deleted) {
+                System.out.println("Profile deleted successfully!");
+                setCurrentScreen(ConsoleAppScreen.PROFILE_PICKER);
+            }
+        } else {
+            setCurrentScreen(ConsoleAppScreen.MAIN_MENU);
+        }
     }
 }

@@ -3,6 +3,8 @@ package org.example.entity;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "films")
@@ -15,6 +17,14 @@ public class Movie {
     @Column(name = "release_date")
     private LocalDate releaseDate;
     private String description;
+
+    @ManyToMany(cascade = {CascadeType.ALL})
+    @JoinTable(
+            name = "film_categories",
+            joinColumns = {@JoinColumn(name = "film")},
+            inverseJoinColumns = {@JoinColumn(name = "category")}
+    )
+    private Set<Category> categories = new HashSet<>();
 
     public int getId() {
         return id;
@@ -46,6 +56,10 @@ public class Movie {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Set<Category> getCategories() {
+        return categories;
     }
 
     public int getReleaseYear() {

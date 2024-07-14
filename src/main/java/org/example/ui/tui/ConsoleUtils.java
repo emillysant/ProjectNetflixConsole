@@ -5,14 +5,14 @@ import java.util.Scanner;
 import java.util.function.Function;
 
 public class ConsoleUtils {
-    private static Scanner scanner = new Scanner(System.in);
+    private static final Scanner scanner = new Scanner(System.in);
 
     public static int getChoice(int max) {
         return getChoice(0, max);
     }
 
     public static int getChoice(int min, int max) {
-        for (;;) {
+        for (; ; ) {
             try {
                 System.out.printf("Choose (%d-%d): ", min, max);
                 var choice = scanner.nextInt();
@@ -22,7 +22,7 @@ public class ConsoleUtils {
                     return choice;
             } catch (InputMismatchException e) {
                 System.out.println("Invalid entry.");
-                while (scanner.hasNext()) scanner.next();
+                scanner.nextLine();
             }
         }
     }
@@ -33,7 +33,7 @@ public class ConsoleUtils {
     }
 
     public static String getEntry(String description, Function<String, String> validator) {
-        for (;;) {
+        for (; ; ) {
             System.out.printf("%s: ", description);
             var entry = scanner.next();
             var validation = validator.apply(entry);
@@ -45,7 +45,7 @@ public class ConsoleUtils {
     }
 
     public static <R> R getEntry(String description, Function<String, R> selector, Function<R, String> validator) {
-        for (;;) {
+        for (; ; ) {
             System.out.printf("%s: ", description);
             var entryID = scanner.next();
             var entry = selector.apply(entryID);

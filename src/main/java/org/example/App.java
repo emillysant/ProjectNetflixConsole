@@ -1,13 +1,7 @@
 package org.example;
 
-import org.example.entity.Account;
-import org.example.entity.Movie;
-import org.example.entity.Profile;
-import org.example.entity.Series;
-import org.example.repository.AccountRepository;
-import org.example.repository.MovieRepository;
-import org.example.repository.ProfileRepository;
-import org.example.repository.SeriesRepository;
+import org.example.entity.*;
+import org.example.repository.*;
 import org.hibernate.SessionFactory;
 
 import java.util.List;
@@ -16,6 +10,7 @@ public class App {
     private final SessionFactory sessionFactory;
 
     private final AccountRepository accountRepository;
+    private final CategoryRepository categoryRepository;
     private final ProfileRepository profileRepository;
     private final MovieRepository movieRepository;
     private final SeriesRepository seriesRepository;
@@ -26,6 +21,7 @@ public class App {
     public App(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
         this.accountRepository = new AccountRepository(sessionFactory);
+        this.categoryRepository = new CategoryRepository(sessionFactory);
         this.profileRepository = new ProfileRepository(sessionFactory);
         this.movieRepository = new MovieRepository(sessionFactory);
         this.seriesRepository = new SeriesRepository(sessionFactory);
@@ -76,6 +72,22 @@ public class App {
         return profileRepository.findByAccount(loggedInAccount);
     }
 
+    public boolean createProfile(Profile profile) {
+        if (profile.getAccount() == 0)
+            profile.setAccount(loggedInAccount.getId());
+        return profileRepository.create(profile);
+    }
+
+    public boolean updateProfile(Profile profile) {
+        profileRepository.edit(profile);
+        return true;
+    }
+
+    public boolean deleteProfile(Profile profile) {
+        profileRepository.delete(profile);
+        return true;
+    }
+
     public List<Movie> getAllMovies() {
         return movieRepository.findAllMovies();
     }
@@ -84,11 +96,23 @@ public class App {
         return seriesRepository.findAllSeries();
     }
 
+    public List<Category> getAllCategories() {
+        return categoryRepository.findAll();
+    }
+
     public List<Movie> searchMovie(String query) {
         return movieRepository.searchByTitle(query);
     }
 
     public List<Series> searchSeries(String query) {
         return seriesRepository.searchByTitle(query);
+    }
+
+    public List<Movie> getMoviesByCategory(Category category) {
+        return movieRepository.findByCategory(category.getName());
+    }
+
+    public List<Series> getSeriesByCategory(Category category) {
+        return seriesRepository.findByCategory(category.getName());
     }
 }
