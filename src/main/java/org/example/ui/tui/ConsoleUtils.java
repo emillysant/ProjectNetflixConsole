@@ -22,6 +22,7 @@ public class ConsoleUtils {
                     return choice;
             } catch (InputMismatchException e) {
                 System.out.println("Invalid entry.");
+                while (scanner.hasNext()) scanner.next();
             }
         }
     }
