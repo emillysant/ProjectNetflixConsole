@@ -37,4 +37,8 @@ public class Series {
     public void setReleaseDate(LocalDate releaseDate) {
         this.releaseDate = releaseDate;
     }
+
+    public int getReleaseYear() {
+        return releaseDate.getYear();
+    }
 }

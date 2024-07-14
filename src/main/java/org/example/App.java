@@ -1,9 +1,13 @@
 package org.example;
 
 import org.example.entity.Account;
+import org.example.entity.Movie;
 import org.example.entity.Profile;
+import org.example.entity.Series;
 import org.example.repository.AccountRepository;
+import org.example.repository.MovieRepository;
 import org.example.repository.ProfileRepository;
+import org.example.repository.SeriesRepository;
 import org.hibernate.SessionFactory;
 
 import java.util.List;
@@ -13,6 +17,8 @@ public class App {
 
     private final AccountRepository accountRepository;
     private final ProfileRepository profileRepository;
+    private final MovieRepository movieRepository;
+    private final SeriesRepository seriesRepository;
 
     private Account loggedInAccount = null;
     private Profile currentProfile = null;
@@ -21,6 +27,8 @@ public class App {
         this.sessionFactory = sessionFactory;
         this.accountRepository = new AccountRepository(sessionFactory);
         this.profileRepository = new ProfileRepository(sessionFactory);
+        this.movieRepository = new MovieRepository(sessionFactory);
+        this.seriesRepository = new SeriesRepository(sessionFactory);
     }
 
     public SessionFactory getSessionFactory() {
@@ -66,5 +74,13 @@ public class App {
 
     public List<Profile> getProfiles() {
         return profileRepository.findByAccount(loggedInAccount);
+    }
+
+    public List<Movie> getAllMovies() {
+        return movieRepository.findAllMovies();
+    }
+
+    public List<Series> getAllSeries() {
+        return seriesRepository.findAllSeries();
     }
 }

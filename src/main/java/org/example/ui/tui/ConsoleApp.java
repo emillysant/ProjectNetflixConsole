@@ -31,6 +31,14 @@ public class ConsoleApp {
                 case REGISTER -> registerScreen();
                 case PROFILE_PICKER -> profilePickerScreen();
                 case MAIN_MENU -> mainMenuScreen();
+                case LIST_MOVIES -> listMoviesScreen();
+                case LIST_SERIES -> listSeriesScreen();
+                case SEARCH_MOVIES -> searchMoviesScreen();
+                case SEARCH_SERIES -> searchSeriesScreen();
+                case LIST_MOVIES_BY_CATEGORY -> listMoviesByCategoryScreen();
+                case LIST_SERIES_BY_CATEGORY -> listSeriesByCategoryScreen();
+                case EDIT_PROFILE -> editProfileScreen();
+                case DELETE_PROFILE -> deleteProfileScreen();
             }
         }
     }
@@ -98,7 +106,79 @@ public class ConsoleApp {
     }
 
     private void mainMenuScreen() {
-        System.out.println("Main Menu " + app.getCurrentProfile().getName());
+        System.out.println("1. List movies");
+        System.out.println("2. List series");
+        System.out.println("3. Search movies");
+        System.out.println("4. Search series");
+        System.out.println("5. List movies by category");
+        System.out.println("6. List series by category");
+        System.out.println("7. Edit profile");
+        System.out.println("8. Delete profile");
+        System.out.println("0. Close profile");
+
+        switch (ConsoleUtils.getChoice(8)) {
+            case 0 -> setCurrentScreen(ConsoleAppScreen.PROFILE_PICKER);
+            case 1 -> setCurrentScreen(ConsoleAppScreen.LIST_MOVIES);
+            case 2 -> setCurrentScreen(ConsoleAppScreen.LIST_SERIES);
+            case 3 -> setCurrentScreen(ConsoleAppScreen.SEARCH_MOVIES);
+            case 4 -> setCurrentScreen(ConsoleAppScreen.SEARCH_SERIES);
+            case 5 -> setCurrentScreen(ConsoleAppScreen.LIST_MOVIES_BY_CATEGORY);
+            case 6 -> setCurrentScreen(ConsoleAppScreen.LIST_SERIES_BY_CATEGORY);
+            case 7 -> setCurrentScreen(ConsoleAppScreen.EDIT_PROFILE);
+            case 8 -> setCurrentScreen(ConsoleAppScreen.DELETE_PROFILE);
+        }
+    }
+
+    private void listMoviesScreen() {
+        var movies = app.getAllMovies();
+
+        for (int i = 0; i < movies.size(); i++) {
+            var movie = movies.get(i);
+            System.out.printf("%d. %s (%d)\n", i + 1, movie.getTitle(), movie.getReleaseYear());
+        }
+
+        setCurrentScreen(null);
+    }
+
+    private void listSeriesScreen() {
+        var series = app.getAllSeries();
+
+        for (int i = 0; i < series.size(); i++) {
+            var series1 = series.get(i);
+            System.out.printf("%d. %s (%d)\n", i + 1, series1.getTitle(), series1.getReleaseYear());
+        }
+
+        setCurrentScreen(null);
+    }
+
+    private void searchMoviesScreen() {
+        System.out.println("searchMoviesScreen");
+        setCurrentScreen(null);
+    }
+
+    private void searchSeriesScreen() {
+        System.out.println("searchSeriesScreen");
+        setCurrentScreen(null);
+    }
+
+    private void listMoviesByCategoryScreen() {
+        System.out.println("listMoviesByCategoryScreen");
+        setCurrentScreen(null);
+    }
+
+    private void listSeriesByCategoryScreen() {
+        System.out.println("listSeriesByCategoryScreen");
+        setCurrentScreen(null);
+    }
+
+    private void editProfileScreen() {
+        System.out.println("editProfileScreen");
+        setCurrentScreen(null);
+    }
+
+    private void deleteProfileScreen() {
+        // XXX: Must have confirmation dialog before actually deleting it
+        System.out.println("deleteProfileScreen");
         setCurrentScreen(null);
     }
 }
