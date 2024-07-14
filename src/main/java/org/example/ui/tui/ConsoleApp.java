@@ -152,33 +152,61 @@ public class ConsoleApp {
     }
 
     private void searchMoviesScreen() {
-        System.out.println("searchMoviesScreen");
-        setCurrentScreen(null);
+        var query = ConsoleUtils.getEntry("Search query");
+
+        var movies = app.searchMovie(query);
+
+        for (int i = 0; i < movies.size(); i++) {
+            var movie = movies.get(i);
+            System.out.printf("%d. %s (%d)\n", i + 1, movie.getTitle(), movie.getReleaseYear());
+        }
+
+        setCurrentScreen(ConsoleAppScreen.MAIN_MENU);
     }
 
     private void searchSeriesScreen() {
-        System.out.println("searchSeriesScreen");
-        setCurrentScreen(null);
+        var query = ConsoleUtils.getEntry("Search query");
+
+        var series = app.searchSeries(query);
+
+        for (int i = 0; i < series.size(); i++) {
+            var series1 = series.get(i);
+            System.out.printf("%d. %s (%d)\n", i + 1, series1.getTitle(), series1.getReleaseYear());
+        }
+
+        setCurrentScreen(ConsoleAppScreen.MAIN_MENU);
     }
 
     private void listMoviesByCategoryScreen() {
-        System.out.println("listMoviesByCategoryScreen");
-        setCurrentScreen(null);
+        var movies = app.getAllMovies();
+
+        for (int i = 0; i < movies.size(); i++) {
+            var movie = movies.get(i);
+            System.out.printf("%d. %s (%d)\n", i + 1, movie.getTitle(), movie.getReleaseYear());
+        }
+
+        setCurrentScreen(ConsoleAppScreen.MAIN_MENU);
     }
 
     private void listSeriesByCategoryScreen() {
-        System.out.println("listSeriesByCategoryScreen");
-        setCurrentScreen(null);
+        var series = app.getAllSeries();
+
+        for (int i = 0; i < series.size(); i++) {
+            var series1 = series.get(i);
+            System.out.printf("%d. %s (%d)\n", i + 1, series1.getTitle(), series1.getReleaseYear());
+        }
+
+        setCurrentScreen(ConsoleAppScreen.MAIN_MENU);
     }
 
     private void editProfileScreen() {
         System.out.println("editProfileScreen");
-        setCurrentScreen(null);
+        setCurrentScreen(ConsoleAppScreen.MAIN_MENU);
     }
 
     private void deleteProfileScreen() {
         // XXX: Must have confirmation dialog before actually deleting it
         System.out.println("deleteProfileScreen");
-        setCurrentScreen(null);
+        setCurrentScreen(ConsoleAppScreen.MAIN_MENU);
     }
 }

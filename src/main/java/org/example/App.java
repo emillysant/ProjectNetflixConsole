@@ -83,4 +83,12 @@ public class App {
     public List<Series> getAllSeries() {
         return seriesRepository.findAllSeries();
     }
+
+    public List<Movie> searchMovie(String query) {
+        return movieRepository.searchByTitle(query);
+    }
+
+    public List<Series> searchSeries(String query) {
+        return seriesRepository.searchByTitle(query);
+    }
 }

@@ -15,11 +15,22 @@ public class SeriesRepository {
     public List<Series> findAllSeries() {
         var session = sessionFactory.openSession();
 
-        List<Series> series = session.createQuery("FROM Series", Series.class).list();
+        List<Series> series = session.createQuery("from Series", Series.class).list();
 
         return series;
 
     }
+
+    public List<Series> searchByTitle(String title) {
+        var session = sessionFactory.openSession();
+        List<Series> series = session.createQuery("from Series where title ilike :query", Series.class)
+                .setParameter("query", "%" + title + "%")
+                .list();
+
+        return series;
+    }
+
+
 
 
 }

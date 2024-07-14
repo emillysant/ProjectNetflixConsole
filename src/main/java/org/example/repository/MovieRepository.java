@@ -17,9 +17,15 @@ public class MovieRepository {
     public List<Movie> findAllMovies() {
 
         var session = sessionFactory.openSession();
-        List<Movie> movies = session.createQuery("FROM Movie", Movie.class).list();
+        List<Movie> movies = session.createQuery("from Movie", Movie.class).list();
         return movies;
     }
 
-
+    public List<Movie> searchByTitle(String title) {
+        var session = sessionFactory.openSession();
+        List<Movie> movie = session.createQuery("from Movie where title ilike :query", Movie.class)
+                .setParameter("query", "%" + title + "%")
+                .list();
+        return movie;
+    }
 }
