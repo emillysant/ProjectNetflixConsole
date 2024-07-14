@@ -8,12 +8,15 @@ CREATE TABLE accounts (
 CREATE TABLE account_profiles (
     id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     account INTEGER NOT NULL REFERENCES accounts,
-    name TEXT NOT NULL
+    name TEXT NOT NULL,
+
+    CONSTRAINT account_name UNIQUE (account, name)
 );
 
 CREATE TABLE films (
     id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     title TEXT NOT NULL,
+    description TEXT NOT NULL,
     release_date DATE NOT NULL
 );
 
@@ -92,10 +95,10 @@ VALUES (1, 'Leo'),
        (1, 'Mary'),
        (2, 'Douglas');
 
-INSERT INTO films (title, release_date)
-VALUES ('The Shawshank Redemption', '1994-10-14'),
-       ('The Godfather', '1972-03-24'),
-       ('The Dark Knight', '2008-07-18');
+INSERT INTO films (title, description, release_date)
+VALUES ('The Shawshank Redemption', 'A wrongly convicted man plans his escape from prison over a long period of time.', '1994-10-14'),
+       ('The Godfather', 'The story of the Corleone family under patriarch Vito Corleone, focusing on the transformation of his youngest son, Michael, from reluctant family outsider to ruthless mafia boss.', '1972-03-24'),
+       ('The Dark Knight', 'When the mentally disturbed Joker wreaks havoc and chaos on Gotham City, Batman must face him and take ultimate responsibility for ending his reign of anarchy.', '2008-07-18');
 
 INSERT INTO series (title, description, release_date)
 VALUES ('Stranger Things',

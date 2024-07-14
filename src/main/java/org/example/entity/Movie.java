@@ -14,6 +14,7 @@ public class Movie {
     private String title;
     @Column(name = "release_date")
     private LocalDate releaseDate;
+    private String description;
 
     public int getId() {
         return id;
@@ -37,6 +38,14 @@ public class Movie {
 
     public void setReleaseDate(LocalDate releaseDate) {
         this.releaseDate = releaseDate;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public int getReleaseYear() {
