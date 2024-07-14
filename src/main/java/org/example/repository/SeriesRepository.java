@@ -1,4 +1,4 @@
 package org.example.repository;
 
-public class SerieRepository {
+public class SeriesRepository {
 }
