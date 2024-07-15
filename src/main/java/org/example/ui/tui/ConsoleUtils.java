@@ -16,6 +16,7 @@ public class ConsoleUtils {
             try {
                 System.out.printf("Choose (%d-%d): ", min, max);
                 var choice = scanner.nextInt();
+                scanner.nextLine();
                 if (choice < min || choice > max)
                     System.out.println("Invalid choice.");
                 else
