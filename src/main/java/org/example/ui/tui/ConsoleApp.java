@@ -1,12 +1,18 @@
 package org.example.ui.tui;
 
 import org.example.App;
-import org.example.entity.Profile;
+import org.example.entity.*;
+
+import java.util.List;
 
 public class ConsoleApp {
     private final App app;
 
     private ConsoleAppScreen currentScreen = ConsoleAppScreen.STARTING;
+    private Movie selectedMovie = null;
+    private Series selectedSeries = null;
+    private SeriesSeason selectedSeriesSeason = null;
+    private SeriesEpisode selectedSeriesEpisode = null;
 
     public ConsoleApp(App app) {
         this.app = app;
@@ -39,6 +45,14 @@ public class ConsoleApp {
                 case SEARCH_SERIES -> searchSeriesScreen();
                 case LIST_MOVIES_BY_CATEGORY -> listMoviesByCategoryScreen();
                 case LIST_SERIES_BY_CATEGORY -> listSeriesByCategoryScreen();
+                case LIST_MOVIES_BY_YEAR -> searchMoviesByYearScreen();
+                case LIST_SERIES_BY_YEAR -> searchSeriesByYearScreen();
+                case LIST_WATCHED_MOVIES -> watchedMoviesScreen();
+                case MOVIE_DETAILS -> movieDetails();
+                case SERIES_DETAILS -> seriesDetails();
+                case SERIES_SEASON_DETAILS -> seriesSeasonDetails();
+                case PLAY_MOVIE -> playMovie();
+                case PLAY_SERIES_EPISODE -> playSeriesEpisode();
                 case EDIT_PROFILE -> editProfileScreen();
                 case DELETE_PROFILE -> deleteProfileScreen();
             }
@@ -137,11 +151,14 @@ public class ConsoleApp {
         System.out.println("4. Search series");
         System.out.println("5. List movies by category");
         System.out.println("6. List series by category");
-        System.out.println("7. Edit profile");
-        System.out.println("8. Delete profile");
+        System.out.println("7. List movies by year");
+        System.out.println("8. List series by year");
+        System.out.println("9. List watched movies by year");
+        System.out.println("10. Edit profile");
+        System.out.println("11. Delete profile");
         System.out.println("0. Close profile");
 
-        switch (ConsoleUtils.getChoice(8)) {
+        switch (ConsoleUtils.getChoice(10)) {
             case 0 -> setCurrentScreen(ConsoleAppScreen.PROFILE_PICKER);
             case 1 -> setCurrentScreen(ConsoleAppScreen.LIST_MOVIES);
             case 2 -> setCurrentScreen(ConsoleAppScreen.LIST_SERIES);
@@ -149,8 +166,11 @@ public class ConsoleApp {
             case 4 -> setCurrentScreen(ConsoleAppScreen.SEARCH_SERIES);
             case 5 -> setCurrentScreen(ConsoleAppScreen.LIST_MOVIES_BY_CATEGORY);
             case 6 -> setCurrentScreen(ConsoleAppScreen.LIST_SERIES_BY_CATEGORY);
-            case 7 -> setCurrentScreen(ConsoleAppScreen.EDIT_PROFILE);
-            case 8 -> setCurrentScreen(ConsoleAppScreen.DELETE_PROFILE);
+            case 7 -> setCurrentScreen(ConsoleAppScreen.LIST_MOVIES_BY_YEAR);
+            case 8 -> setCurrentScreen(ConsoleAppScreen.LIST_SERIES_BY_YEAR);
+            case 9 -> setCurrentScreen(ConsoleAppScreen. LIST_WATCHED_MOVIES);
+            case 10 -> setCurrentScreen(ConsoleAppScreen.EDIT_PROFILE);
+            case 11 -> setCurrentScreen(ConsoleAppScreen.DELETE_PROFILE);
         }
     }
 
@@ -223,8 +243,16 @@ public class ConsoleApp {
             var movie = movies.get(i);
             System.out.printf("%d. %s (%d)\n", i + 1, movie.getTitle(), movie.getReleaseYear());
         }
+        System.out.println("0. Back");
 
-        setCurrentScreen(ConsoleAppScreen.MAIN_MENU);
+        choice = ConsoleUtils.getChoice(movies.size());
+        if (choice == 0) {
+            setCurrentScreen(ConsoleAppScreen.MAIN_MENU);
+            return;
+        }
+
+        selectedMovie = movies.get(choice - 1);
+        setCurrentScreen(ConsoleAppScreen.MOVIE_DETAILS);
     }
 
     private void listSeriesByCategoryScreen() {
@@ -248,7 +276,69 @@ public class ConsoleApp {
             var series1 = series.get(i);
             System.out.printf("%d. %s (%d)\n", i + 1, series1.getTitle(), series1.getReleaseYear());
         }
+        System.out.println("0. Back");
 
+        choice = ConsoleUtils.getChoice(series.size());
+        if (choice == 0) {
+            setCurrentScreen(ConsoleAppScreen.MAIN_MENU);
+            return;
+        }
+
+        selectedSeries = series.get(choice - 1);
+        setCurrentScreen(ConsoleAppScreen.SERIES_DETAILS);
+    }
+
+    private void movieDetails() {
+        System.out.println("[Movie] " + selectedMovie.getTitle() + " " + selectedMovie.getReleaseYear());
+        System.out.println(selectedMovie.getDescription() + "\n");
+
+        System.out.println("1. Play");
+        System.out.println("0. Back");
+        switch (ConsoleUtils.getChoice(1)) {
+            case 0 -> setCurrentScreen(ConsoleAppScreen.MAIN_MENU);
+            case 1 -> setCurrentScreen(null);
+        }
+    }
+
+    private void seriesDetails() {
+        System.out.println("[Series] " + selectedSeries.getTitle() + " (" + selectedSeries.getReleaseYear() + ")");
+        System.out.println(selectedSeries.getDescription() + "\n");
+
+        var seasons = selectedSeries.getSeasons().toArray(new SeriesSeason[0]);
+        for (int i = 0; i < seasons.length; i++) {
+            var season = seasons[i];
+            System.out.printf("%d. Season %s \n", i + 1, i + 1);
+        }
+        System.out.println("0. Back");
+
+        var choice = ConsoleUtils.getChoice(seasons.length);
+        if (choice == 0) {
+            setCurrentScreen(ConsoleAppScreen.MAIN_MENU);
+            return;
+        }
+
+        selectedSeriesSeason = seasons[choice - 1];
+        setCurrentScreen(ConsoleAppScreen.SERIES_SEASON_DETAILS);
+    }
+
+    private void seriesSeasonDetails() {
+        System.out.println("[Season] " + selectedSeries.getTitle() + " (" + selectedSeries.getReleaseYear() + ") - Season " + selectedSeriesSeason.getOrderNumber());
+
+        var episodes = selectedSeriesSeason.getEpisodes().toArray(new SeriesEpisode[0]);
+        for (int i = 0; i < episodes.length; i++) {
+            var episode = episodes[i];
+            System.out.printf("%d. Episode %d: %s", i + 1, i + 1, episode.getTitle());
+        }
+        System.out.println("0. Back");
+
+        var choice = ConsoleUtils.getChoice(episodes.length);
+        if (choice == 0) {
+            setCurrentScreen(ConsoleAppScreen.SERIES_DETAILS);
+            return;
+        }
+        selectedSeriesEpisode = episodes[choice - 1];
+
+        // TODO: Play?
         setCurrentScreen(ConsoleAppScreen.MAIN_MENU);
     }
 
@@ -277,5 +367,72 @@ public class ConsoleApp {
         } else {
             setCurrentScreen(ConsoleAppScreen.MAIN_MENU);
         }
+    }
+
+    public void searchMoviesByYearScreen() {
+        var year = ConsoleUtils.getEntry("Enter the year to search for movies");
+
+        var movies = app.getMoviesByYear(Integer.valueOf(year));
+        if (movies.isEmpty()) {
+            System.out.println("No movies found for the year " + year);
+        } else {
+            System.out.printf("Movies released in %d:\n", year);
+            for (int i = 0; i < movies.size(); i++) {
+                var movie = movies.get(i);
+                System.out.printf("%d. %s\n", i + 1, movie.getTitle());
+            }
+        }
+
+        setCurrentScreen(ConsoleAppScreen.MAIN_MENU);
+    }
+
+    public void searchSeriesByYearScreen() {
+        var year = ConsoleUtils.getEntry("Enter the year to search for series");
+
+        var series = app.getSeriesByYear(Integer.valueOf(year));
+        if (series.isEmpty()) {
+            System.out.println("No series found for the year " + year);
+        } else {
+            System.out.printf("Series released in %d:\n", year);
+            for (int i = 0; i < series.size(); i++) {
+                var serie = series.get(i);
+                System.out.printf("%d. %s\n", i + 1, serie.getTitle());
+            }
+        }
+
+        setCurrentScreen(ConsoleAppScreen.MAIN_MENU);
+    }
+
+    private void watchedMoviesScreen() {
+        List<WatchedMovie> watchedMovies = app.getWatchedMovies();
+        if(watchedMovies.isEmpty()){
+            System.out.println("No watched movies found for the current profile");
+        }else{
+            System.out.println("Watched Movies: ");
+            for(WatchedMovie watchedMovie : watchedMovies) {
+                System.out.println("-" + watchedMovie.getMovie().getTitle());
+            }
+        }
+    }
+
+    private void watchedSeriesEpisodesScreen() {
+        //
+    }
+
+    private void playMovie() {
+        // TODO: Implement watched
+        // perfil e titulo do filme assitido
+        System.out.printf("Playing movie: %s\n", selectedMovie.getTitle());
+        System.out.println("Press any key to stop playing...");
+        ConsoleUtils.getEntry("");
+        setCurrentScreen(ConsoleAppScreen.MAIN_MENU);
+    }
+
+    private void playSeriesEpisode() {
+        System.out.printf("Playing series: %s\n", selectedMovie.getTitle());
+        System.out.printf("Season %d, episode %d: %s\n", selectedSeriesSeason.getOrderNumber(), selectedSeriesEpisode.getOrderNumber(), selectedSeriesEpisode.getTitle());
+        System.out.println("Press any key to stop playing...");
+        ConsoleUtils.getEntry("");
+        setCurrentScreen(ConsoleAppScreen.MAIN_MENU);
     }
 }

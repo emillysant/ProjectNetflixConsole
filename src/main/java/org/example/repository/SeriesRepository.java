@@ -1,5 +1,6 @@
 package org.example.repository;
 
+import org.example.entity.Movie;
 import org.example.entity.Series;
 import org.hibernate.SessionFactory;
 
@@ -35,4 +36,12 @@ public class SeriesRepository {
                 .list();
 
     }
+
+    public List<Series> findSeriesByYear(Integer year){
+        var session = sessionFactory.openSession();
+        return session.createQuery( "FROM Series s WHERE YEAR(s.releaseDate) = :year", Series.class)
+                .setParameter("year", year)
+                .list();
+    }
+
 }

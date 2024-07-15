@@ -14,6 +14,7 @@ public class App {
     private final ProfileRepository profileRepository;
     private final MovieRepository movieRepository;
     private final SeriesRepository seriesRepository;
+    private final WatchedMoviesRepository watchedMoviesRepository;
 
     private Account loggedInAccount = null;
     private Profile currentProfile = null;
@@ -25,6 +26,7 @@ public class App {
         this.profileRepository = new ProfileRepository(sessionFactory);
         this.movieRepository = new MovieRepository(sessionFactory);
         this.seriesRepository = new SeriesRepository(sessionFactory);
+        this.watchedMoviesRepository = new WatchedMoviesRepository(sessionFactory);
     }
 
     public SessionFactory getSessionFactory() {
@@ -114,5 +116,22 @@ public class App {
 
     public List<Series> getSeriesByCategory(Category category) {
         return seriesRepository.findByCategory(category.getName());
+    }
+
+    public List<Movie> getMoviesByYear(Integer year) {
+        return movieRepository.findMoviesByYear(year);
+    }
+
+    public List<Series> getSeriesByYear(Integer year) {
+        return seriesRepository.findSeriesByYear(year);
+    }
+
+    public List<WatchedMovie> getWatchedMovies() {
+        return watchedMoviesRepository.getWatchedMoviesForCurrentProfile(currentProfile.getId());
+
+    }
+
+    public List<WatchedSeries> getWatchedSeries() {
+        throw new RuntimeException("not implemented");
     }
 }
