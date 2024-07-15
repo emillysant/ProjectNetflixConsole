@@ -3,6 +3,7 @@ package org.example.repository;
 import jakarta.persistence.EntityExistsException;
 import org.example.entity.WatchedMovie;
 import org.hibernate.SessionFactory;
+import org.hibernate.exception.ConstraintViolationException;
 
 import java.util.List;
 
@@ -18,11 +19,11 @@ public class WatchedMoviesRepository {
         var session = sessionFactory.openSession();
 
         var tx = session.beginTransaction();
-        session.persist(watchedMovie);
         try {
+            session.persist(watchedMovie);
             tx.commit();
             return true;
-        } catch (EntityExistsException e) {
+        } catch (ConstraintViolationException e) {
             return false;
         }
     }
