@@ -49,8 +49,8 @@ Este projeto faz parte da discilplina de Java Avançado da T-Academy. A Netflix 
 
 - **Entity**: Contém as classes de entidade que representam os dados do domínio.
 - **Repository**: Contém as classes que gerenciam a persistência de dados.
-- **Service**: Contém as classes que encapsulam a lógica de negócio.
-- **Controller**: Contém as classes que interagem com o usuário através da linha de comando.
+- **Factory**: Contém a classe que fornece uma interface para criar objetos.
+- **UI.TUI**: Contém as classes que interagem com o usuário através da linha de comando.
 
 ## Relatório Diário de Desenvolvimento
 
@@ -60,18 +60,27 @@ Este projeto faz parte da discilplina de Java Avançado da T-Academy. A Netflix 
 - Feita a configuração inicial do banco de dados.
 
 ### Sexta-Feira
-- Implementados os repositórios e serviços para usuários e perfis.
-- Criados testes unitários para as funcionalidades de usuários e perfis.
-- Atualizado o README.md com as funcionalidades de usuários e perfis.
+- Definição da arquitetura do projeto, estrutura dos diretórios.
+- Criação de um esqueleto básico do projeto com classes vazias para as entidades principais.
+- Configuração do Hibernate.
+- Continuação do desenvolvimento do banco de dados.
+- Atualização do README.md com a descrição inicial do projeto e as funcionalidades básicas.
 
 ### Sábado
-- Implementados os repositórios e serviços para filmes, séries, temporadas e episódios.
-- Criados testes unitários para as funcionalidades de filmes, séries, temporadas e episódios.
-- Atualizado o README.md com as funcionalidades de filmes, séries, temporadas e episódios.
+- Implementação das entidades com seus atributos e métodos básicos.
+- Descrição de uma história de usuário.
+- Reestruturação para um aplicativo de console simples. 
+- Implementação deste console.
+- Reestruturação dos diretórios, foram excluídas as classes services não utilizadas
+- Implementação de um loop básico para o funcionamento do sistema.
+- Implementação de login, registro e seleção de perfil
 
 ### Domingo
 - Implementada a interface do usuário (TUI) para interagir via console.
-- Integrados os serviços com a interface do usuário.
+- Implementação de métodos para buscar por categoria e buscar por título.
+- Implementação de métodos para criar, editar e excluir perfis 
+- Implementação recursos do menu principal, categorias e descrições de séries
+- Inserção de amostra de dados
 - Testada a aplicação manualmente para garantir a funcionalidade.
 
 ### Segunda-Feira
