@@ -5,6 +5,7 @@ public enum ConsoleAppScreen {
     LOGIN,
     REGISTER,
     PROFILE_PICKER,
+    CREATE_PROFILE,
     MAIN_MENU,
     LIST_MOVIES,
     LIST_SERIES,

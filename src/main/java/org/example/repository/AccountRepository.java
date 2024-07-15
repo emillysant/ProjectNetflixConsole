@@ -13,6 +13,7 @@ public class AccountRepository {
 
     public Account findByEmail(String email) {
         var session = sessionFactory.openSession();
+
         return session.createQuery("from Account where email=:email", Account.class)
                 .setParameter("email", email)
                 .uniqueResult();
@@ -20,6 +21,7 @@ public class AccountRepository {
 
     public void persist(Account account) {
         var session = sessionFactory.openSession();
+
         Transaction register = session.beginTransaction();
         session.persist(account);
         register.commit();
