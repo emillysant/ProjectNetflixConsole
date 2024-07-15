@@ -8,7 +8,7 @@
 
 ## Descrição do Projeto 🚀
 
-Este projeto faz parte da discilplina de Java Avançado da T-Academy. É uma aplicação de console que simula funcionalidades básicas de uma plataforma de streaming como a Netflix. Foi desenvolvido em Java utilizando uma arquitetura em camadas para organizar o código em entidades, repositórios, serviços e controladores. 
+Este projeto faz parte da discilplina de Java Avançado da T-Academy. A Netflix Console Application é uma aplicação em Java que simula um sistema básico de gerenciamento de usuários, perfis e conteúdo (filmes e séries) similar ao da Netflix. Esta aplicação é executada via console e permite a interação do usuário com o sistema para realizar operações básicas de CRUD (Criar, Ler, Atualizar, Excluir) em diferentes entidades.
 
 ## Funcionalidades
 - **Usuários**
@@ -54,30 +54,28 @@ Este projeto faz parte da discilplina de Java Avançado da T-Academy. É uma apl
 
 ## Relatório Diário de Desenvolvimento
 
-### Quinta-Feira
-- **Atividade Realizadas**:
-- **Desafios Encontrados**:
-- **Próximos Passos**:
+### Quinta-Feira 
+- Definidos os requisitos do sistema.
+- Criados os diagramas UML para a estrutura do sistema.
+- Feita a configuração inicial do banco de dados.
 
 ### Sexta-Feira
-- **Atividade Realizadas**:
-- **Desafios Encontrados**:
-- **Próximos Passos**:
+- Implementados os repositórios e serviços para usuários e perfis.
+- Criados testes unitários para as funcionalidades de usuários e perfis.
+- Atualizado o README.md com as funcionalidades de usuários e perfis.
 
 ### Sábado
-- **Atividade Realizadas**:
-- **Desafios Encontrados**:
-- **Próximos Passos**:
+- Implementados os repositórios e serviços para filmes, séries, temporadas e episódios.
+- Criados testes unitários para as funcionalidades de filmes, séries, temporadas e episódios.
+- Atualizado o README.md com as funcionalidades de filmes, séries, temporadas e episódios.
 
 ### Domingo
-- **Atividade Realizadas**:
-- **Desafios Encontrados**:
-- **Próximos Passos**:
+- Implementada a interface do usuário (TUI) para interagir via console.
+- Integrados os serviços com a interface do usuário.
+- Testada a aplicação manualmente para garantir a funcionalidade.
 
 ### Segunda-Feira
-- **Atividade Realizadas**:
-- **Desafios Encontrados**:
-- **Próximos Passos**:
+- 
 
 ## Tecnologias Utilizadas 🖥
 
