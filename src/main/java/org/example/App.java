@@ -3,11 +3,14 @@ package org.example;
 import org.example.entity.*;
 import org.example.repository.*;
 import org.hibernate.SessionFactory;
+import org.springframework.security.crypto.argon2.Argon2PasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.List;
 
 public class App {
     private final SessionFactory sessionFactory;
+    private final PasswordEncoder passwordEncoder = new Argon2PasswordEncoder(16, 32, 1, 60000, 10);
 
     private final AccountRepository accountRepository;
     private final CategoryRepository categoryRepository;
@@ -46,7 +49,7 @@ public class App {
     public boolean login(String email, String password) {
         var account = accountRepository.findByEmail(email);
         if (account == null) return false;
-        else if (!account.getPasswordHash().equals(password))
+        else if (!passwordEncoder.matches(password, account.getPasswordHash()))
             return false;
 
         loggedInAccount = account;
@@ -65,7 +68,7 @@ public class App {
 
         var newAccount = new Account();
         newAccount.setEmail(email);
-        newAccount.setPasswordHash(password);
+        newAccount.setPasswordHash(passwordEncoder.encode(password));
 
         accountRepository.persist(newAccount);
         loggedInAccount = newAccount;

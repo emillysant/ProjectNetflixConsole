@@ -87,8 +87,8 @@ CREATE TABLE series_categories
 -- Example data
 
 INSERT INTO accounts (email, password_hash, created_at)
-VALUES ('leovano@example.com', '1234', NOW() AT TIME ZONE 'UTC'),
-       ('douglas@example.com', '12345', NOW() AT TIME ZONE 'UTC');
+VALUES ('leovano@example.com', '$argon2id$v=19$m=60000,t=10,p=1$SzNSTklWaUtOek56cXNKQg$8g2stOMR1zWDYEdPnH5Q799BhFJDrI3o9j2MVsYo4pE', NOW() AT TIME ZONE 'UTC'),
+       ('douglas@example.com', '$argon2id$v=19$m=60000,t=10,p=1$SzNSTklWaUtOek56cXNKQg$0vg7OPka9UuAVQHaUGNm6wccRy2PAlatw4/2jPaK8Xc', NOW() AT TIME ZONE 'UTC');
 
 INSERT INTO account_profiles (account, name)
 VALUES (1, 'Leo'),
