@@ -13,9 +13,9 @@ public class CategoryRepository {
     }
 
     public List<Category> findAll() {
-        var session = sessionFactory.openSession();
-
-        return session.createQuery("from Category", Category.class)
-                .getResultList();
+        try (var session = sessionFactory.openSession()) {
+            return session.createQuery("from Category", Category.class)
+                    .getResultList();
+        }
     }
 }

@@ -2,7 +2,9 @@ package org.example.entity;
 
 import jakarta.persistence.*;
 
+import java.util.HashSet;
 import java.util.Set;
+import java.util.TreeSet;
 
 @Entity
 @Table(name = "series_episodes")
@@ -21,7 +23,7 @@ public class SeriesEpisode implements Comparable<SeriesEpisode> {
     private String title;
 
     @OneToMany(mappedBy = "seriesEpisode")
-    private Set<WatchedSeries> watchedSeries;
+    private Set<WatchedSeries> watchedSeries = new HashSet<>();
 
     public int getId() {
         return id;

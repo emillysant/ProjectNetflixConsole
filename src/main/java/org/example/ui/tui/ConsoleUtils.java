@@ -16,6 +16,7 @@ public class ConsoleUtils {
             try {
                 System.out.printf("Choose (%d-%d): ", min, max);
                 var choice = scanner.nextInt();
+                scanner.nextLine();
                 if (choice < min || choice > max)
                     System.out.println("Invalid choice.");
                 else
@@ -42,7 +43,7 @@ public class ConsoleUtils {
             if (description != null) {
                 System.out.printf("%s: ", description);
             }
-            var entry = scanner.next();
+            var entry = scanner.nextLine();
             var validation = validator.apply(entry);
             if (validation == null)
                 return entry;
@@ -54,7 +55,7 @@ public class ConsoleUtils {
     public static <R> R getEntry(String description, Function<String, R> selector, Function<R, String> validator) {
         for (; ; ) {
             System.out.printf("%s: ", description);
-            var entryID = scanner.next();
+            var entryID = scanner.nextLine();
             var entry = selector.apply(entryID);
             var validation = validator.apply(entry);
             if (validation == null)

@@ -15,40 +15,40 @@ public class ProfileRepository {
     }
 
     public List<Profile> findByAccount(Account account) {
-        var session = sessionFactory.openSession();
-
-        return session.createQuery("from Profile where account = :account", Profile.class)
-                .setParameter("account", account.getId())
-                .getResultList();
+        try (var session = sessionFactory.openSession()) {
+            return session.createQuery("from Profile where account = :account", Profile.class)
+                    .setParameter("account", account.getId())
+                    .getResultList();
+        }
     }
 
     public boolean create(Profile profile) {
-        var session = sessionFactory.openSession();
-
-        var tx = session.beginTransaction();
-        session.persist(profile);
-        try {
-            tx.commit();
-            return true;
-        } catch (EntityExistsException e) {
-            return false;
+        try (var session = sessionFactory.openSession()) {
+            var tx = session.beginTransaction();
+            session.persist(profile);
+            try {
+                tx.commit();
+                return true;
+            } catch (EntityExistsException e) {
+                return false;
+            }
         }
     }
 
     // FIXME: This use of `Session.merge()` appears to not be necessary
     public void edit(Profile profile) {
-        var session = sessionFactory.openSession();
-
-        var tx = session.beginTransaction();
-        session.merge(profile);
-        tx.commit();
+        try (var session = sessionFactory.openSession()) {
+            var tx = session.beginTransaction();
+            session.merge(profile);
+            tx.commit();
+        }
     }
 
     public void delete(Profile profile) {
-        var session = sessionFactory.openSession();
-
-        var tx = session.beginTransaction();
-        session.remove(profile);
-        tx.commit();
+        try (var session = sessionFactory.openSession()) {
+            var tx = session.beginTransaction();
+            session.remove(profile);
+            tx.commit();
+        }
     }
 }
