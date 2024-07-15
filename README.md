@@ -10,11 +10,23 @@
 
 Este projeto faz parte da discilplina de Java Avançado da T-Academy. A Netflix Console Application é uma aplicação em Java que simula um sistema básico de gerenciamento de usuários, perfis e conteúdo (filmes e séries) similar ao da Netflix. Esta aplicação é executada via console e permite a interação do usuário com o sistema para realizar operações básicas de CRUD (Criar, Ler, Atualizar, Excluir) em diferentes entidades.
 
+## Como usar
+- Clone a main do projeto
+- Suba o container
+- usuário para logar
+  Nome:leovano@example.com
+  Senha:1234
+### Subindo container
+```docker-compose up ```
+
+### Parando o container
+```docker-compose down ```
 ## Funcionalidades
 - **Usuários**
   - Registro de novos usuários
   - Login de usuários existentes
   - Gerenciamento de perfis associados a cada usuário
+  - Senha salva com Hash Argon2
  
 - **Perfis**
   - Criação, edição e exclusão de perfis
@@ -101,9 +113,3 @@ Este projeto faz parte da discilplina de Java Avançado da T-Academy. A Netflix 
 | [<img src="https://avatars.githubusercontent.com/u/13321466?v=4" width=115><br><sub>Eleuvano</sub>](https://github.com/leovano)  |  [<img src="https://avatars.githubusercontent.com/u/70452464?v=4" width=115><br><sub>Emilly Santiago</sub>](https://github.com/emillysant)  |  [<img src="https://user-images.githubusercontent.com/95758069/189210989-7918de13-6172-4c19-8a59-8a2b66e64e83.jpg" width=115><br><sub>Igor Monteiro</sub>](https://github.com/igorperonico)  |  [<img src="https://avatars.githubusercontent.com/u/98565751?v=4" width=115><br><sub>Douglas Queiroz</sub>](https://github.com/douglasliman)  |
 | :---: | :---: | :---: | :---: |
 
-
-### Subindo container
-```docker-compose up ```
-
-### Parando o container
-```docker-compose down ```
