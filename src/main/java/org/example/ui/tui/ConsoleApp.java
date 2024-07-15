@@ -101,7 +101,7 @@ public class ConsoleApp {
         int choice = ConsoleUtils.getChoice(profiles.size() + 1);
         if (choice == 0) {
             app.logout();
-            setCurrentScreen(ConsoleAppScreen.LOGIN);
+            setCurrentScreen(ConsoleAppScreen.STARTING);
             return;
         } else if (choice == createNewProfileOption) {
             setCurrentScreen(ConsoleAppScreen.CREATE_PROFILE);
