@@ -236,12 +236,12 @@ VALUES (1, 1, 'Chapter One: The Vanishing of Will Byers'),
        (2, 1, 'Chapter One: Trick or Treat, Freak'),
        (2, 2, 'Chapter Two: When Barb Hangs, You Hang'),
        (2, 3, 'Chapter Three: My Poor Monster'),
-       (3, 1, 'Winter Is Coming'),
-       (3, 2, 'The Kingsroad'),
-       (3, 3, 'Lord Snow'),
-       (4, 1, 'The North Remembers'),
-       (4, 2, 'The Night Lands'),
-       (4, 3, 'What Is Dead May Never Die');
+       (5, 1, 'Winter Is Coming'),
+       (5, 2, 'The Kingsroad'),
+       (5, 3, 'Lord Snow'),
+       (6, 1, 'The North Remembers'),
+       (6, 2, 'The Night Lands'),
+       (6, 3, 'What Is Dead May Never Die');
 
 INSERT INTO categories (name)
 VALUES ('Crime'),
