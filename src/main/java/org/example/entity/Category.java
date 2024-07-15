@@ -6,7 +6,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "categories")
-public class Category {
+public class Category implements Comparable<Category> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -29,5 +29,10 @@ public class Category {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public int compareTo(Category o) {
+        return getName().compareTo(o.getName());
     }
 }

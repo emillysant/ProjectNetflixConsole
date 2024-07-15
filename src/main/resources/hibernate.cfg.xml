@@ -19,6 +19,8 @@
         <mapping class="org.example.entity.Movie"/>
         <mapping class="org.example.entity.Profile"/>
         <mapping class="org.example.entity.Series"/>
+        <mapping class="org.example.entity.SeriesSeason"/>
+        <mapping class="org.example.entity.SeriesEpisode"/>
         <mapping class="org.example.entity.WatchedMovie"/>
         <mapping class="org.example.entity.WatchedSeries"/>
     </session-factory>

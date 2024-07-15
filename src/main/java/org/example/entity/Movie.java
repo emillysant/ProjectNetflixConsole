@@ -26,12 +26,11 @@ public class Movie {
     )
     private Set<Category> categories = new HashSet<>();
 
+    @OneToMany(mappedBy = "movie")
+    private Set<WatchedMovie> watchedMovies;
+
     public int getId() {
         return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getTitle() {
@@ -60,6 +59,10 @@ public class Movie {
 
     public Set<Category> getCategories() {
         return categories;
+    }
+
+    public Set<WatchedMovie> getWatchedMovies() {
+        return watchedMovies;
     }
 
     public int getReleaseYear() {

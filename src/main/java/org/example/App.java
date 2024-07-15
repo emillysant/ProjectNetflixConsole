@@ -14,6 +14,8 @@ public class App {
     private final ProfileRepository profileRepository;
     private final MovieRepository movieRepository;
     private final SeriesRepository seriesRepository;
+    private final WatchedMoviesRepository watchedMoviesRepository;
+    private final WatchedSeriesRepository watchedSeriesRepository;
 
     private Account loggedInAccount = null;
     private Profile currentProfile = null;
@@ -25,6 +27,8 @@ public class App {
         this.profileRepository = new ProfileRepository(sessionFactory);
         this.movieRepository = new MovieRepository(sessionFactory);
         this.seriesRepository = new SeriesRepository(sessionFactory);
+        this.watchedMoviesRepository = new WatchedMoviesRepository(sessionFactory);
+        this.watchedSeriesRepository = new WatchedSeriesRepository(sessionFactory);
     }
 
     public SessionFactory getSessionFactory() {
@@ -114,5 +118,35 @@ public class App {
 
     public List<Series> getSeriesByCategory(Category category) {
         return seriesRepository.findByCategory(category.getName());
+    }
+
+    public List<Movie> getMoviesByYear(Integer year) {
+        return movieRepository.findMoviesByYear(year);
+    }
+
+    public List<Series> getSeriesByYear(Integer year) {
+        return seriesRepository.findSeriesByYear(year);
+    }
+
+    public List<WatchedMovie> getWatchedMovies() {
+        return watchedMoviesRepository.findByProfileId(currentProfile.getId());
+    }
+
+    public List<WatchedSeries> getWatchedSeries() {
+        return watchedSeriesRepository.findByProfileId(currentProfile.getId());
+    }
+
+    public boolean addWatchedMovie(Movie movie) {
+        var watchedMovie = new WatchedMovie();
+        watchedMovie.setMovie(movie);
+        watchedMovie.setProfile(getCurrentProfile());
+        return watchedMoviesRepository.create(watchedMovie);
+    }
+
+    public boolean addWatchedSeriesEpisode(SeriesEpisode seriesEpisode) {
+        var watchedSeries = new WatchedSeries();
+        watchedSeries.setSeriesEpisode(seriesEpisode);
+        watchedSeries.setProfile(getCurrentProfile());
+        return watchedSeriesRepository.create(watchedSeries);
     }
 }

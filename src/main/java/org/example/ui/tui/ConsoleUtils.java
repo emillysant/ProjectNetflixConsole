@@ -27,6 +27,11 @@ public class ConsoleUtils {
         }
     }
 
+    public static void getEntry() {
+        Function<String, String> defaultValidator = (it) -> null;
+        getEntry(null, defaultValidator);
+    }
+
     public static String getEntry(String description) {
         Function<String, String> defaultValidator = (it) -> it.isEmpty() ? "Cannot be empty!" : null;
         return getEntry(description, defaultValidator);
@@ -34,7 +39,9 @@ public class ConsoleUtils {
 
     public static String getEntry(String description, Function<String, String> validator) {
         for (; ; ) {
-            System.out.printf("%s: ", description);
+            if (description != null) {
+                System.out.printf("%s: ", description);
+            }
             var entry = scanner.next();
             var validation = validator.apply(entry);
             if (validation == null)

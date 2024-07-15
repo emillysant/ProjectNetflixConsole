@@ -3,8 +3,8 @@ package org.example.entity;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
-import java.util.HashSet;
 import java.util.Set;
+import java.util.TreeSet;
 
 @Entity
 @Table(name = "series")
@@ -17,13 +17,16 @@ public class Series {
     private LocalDate releaseDate;
     private String description;
 
+    @OneToMany(mappedBy = "series")
+    private Set<SeriesSeason> seasons = new TreeSet<>();
+
     @ManyToMany(cascade = {CascadeType.ALL})
     @JoinTable(
             name = "series_categories",
             joinColumns = {@JoinColumn(name = "series")},
             inverseJoinColumns = {@JoinColumn(name = "category")}
     )
-    private Set<Category> categories = new HashSet<>();
+    private Set<Category> categories = new TreeSet<>();
 
     public int getId() {
         return id;
@@ -55,6 +58,14 @@ public class Series {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Set<SeriesSeason> getSeasons() {
+        return seasons;
+    }
+
+    public Set<Category> getCategories() {
+        return categories;
     }
 
     public int getReleaseYear() {

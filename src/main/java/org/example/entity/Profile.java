@@ -2,6 +2,8 @@ package org.example.entity;
 
 import jakarta.persistence.*;
 
+import java.util.Set;
+
 @Entity
 @Table(name = "account_profiles")
 public class Profile {
@@ -10,6 +12,9 @@ public class Profile {
     private int id;
     private int account;
     private String name;
+
+    @OneToMany(mappedBy = "profile")
+    private Set<WatchedMovie> watchedMovieSet;
 
     public int getId() {
         return id;
@@ -33,5 +38,9 @@ public class Profile {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Set<WatchedMovie> getWatchedMovieSet() {
+        return watchedMovieSet;
     }
 }
