@@ -14,8 +14,8 @@ Este projeto faz parte da discilplina de Java Avançado da T-Academy. A Netflix 
 - Clone a main do projeto
 - Suba o container
 - usuário para logar
-  Nome:leovano@example.com
-  Senha:1234
+  - Nome:leovano@example.com
+  - Senha:1234
 ### Subindo container
 ```docker-compose up ```
 
