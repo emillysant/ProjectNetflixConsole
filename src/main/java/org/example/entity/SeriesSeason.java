@@ -2,8 +2,7 @@ package org.example.entity;
 
 import jakarta.persistence.*;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 
 //public class Series {
@@ -23,8 +22,8 @@ public class SeriesSeason implements Comparable<SeriesSeason> {
     @Column(name = "order_number")
     private int orderNumber;
 
-    @OneToMany(mappedBy = "season")
-    private Set<SeriesEpisode> episodes = new HashSet<>();
+    @OneToMany(mappedBy = "season", fetch = FetchType.EAGER)
+    private SortedSet<SeriesEpisode> episodes = new TreeSet<>();
 
     public int getId() {
         return id;

@@ -13,34 +13,34 @@ public class MovieRepository {
     }
 
     public List<Movie> findAllMovies() {
-        var session = sessionFactory.openSession();
-
-        return session.createQuery("from Movie", Movie.class).list();
+        try (var session = sessionFactory.openSession()) {
+            return session.createQuery("from Movie", Movie.class).list();
+        }
     }
 
     public List<Movie> searchByTitle(String title) {
-        var session = sessionFactory.openSession();
-
-        return session.createQuery("from Movie where title ilike :query", Movie.class)
-                .setParameter("query", "%" + title + "%")
-                .list();
+        try (var session = sessionFactory.openSession()) {
+            return session.createQuery("from Movie where title ilike :query", Movie.class)
+                    .setParameter("query", "%" + title + "%")
+                    .list();
+        }
     }
 
     public List<Movie> findByCategory(String categoryName) {
-        var session = sessionFactory.openSession();
-
-        return session.createQuery(
-                        "from Movie m join m.categories c where c.name = :categoryName",
-                        Movie.class)
-                .setParameter("categoryName", categoryName)
-                .list();
+        try (var session = sessionFactory.openSession()) {
+            return session.createQuery(
+                            "from Movie m join m.categories c where c.name = :categoryName",
+                            Movie.class)
+                    .setParameter("categoryName", categoryName)
+                    .list();
+        }
     }
 
     public List<Movie> findMoviesByYear(Integer year) {
-        var session = sessionFactory.openSession();
-        return session.createQuery("FROM Movie m WHERE YEAR(m.releaseDate) = :year", Movie.class)
-                .setParameter("year", year)
-                .list();
+        try (var session = sessionFactory.openSession()) {
+            return session.createQuery("FROM Movie m WHERE YEAR(m.releaseDate) = :year", Movie.class)
+                    .setParameter("year", year)
+                    .list();
+        }
     }
-
 }

@@ -1,6 +1,5 @@
 package org.example.repository;
 
-import jakarta.persistence.EntityExistsException;
 import org.example.entity.WatchedSeries;
 import org.hibernate.SessionFactory;
 import org.hibernate.exception.ConstraintViolationException;
@@ -28,10 +27,10 @@ public class WatchedSeriesRepository {
     }
 
     public List<WatchedSeries> findByProfileId(int profileId) {
-        var session = sessionFactory.openSession();
-
-        return session.createQuery("from WatchedSeries ws join ws.profile p join ws.seriesEpisode e where p.id = :profileId order by ws.createdAt desc", WatchedSeries.class)
-                .setParameter("profileId", profileId)
-                .list();
+        try (var session = sessionFactory.openSession()) {
+            return session.createQuery("from WatchedSeries ws join ws.profile p join ws.seriesEpisode e where p.id = :profileId order by ws.createdAt desc", WatchedSeries.class)
+                    .setParameter("profileId", profileId)
+                    .list();
+        }
     }
 }

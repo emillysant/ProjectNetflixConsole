@@ -240,6 +240,7 @@ public class ConsoleApp {
         System.out.println(selectedSeries.getDescription() + "\n");
 
         var seasons = selectedSeries.getSeasons().toArray(new SeriesSeason[0]);
+
         for (int i = 0; i < seasons.length; i++) {
             var season = seasons[i];
             System.out.printf("%d. Season %s\n", i + 1, season.getOrderNumber());
@@ -328,7 +329,8 @@ public class ConsoleApp {
                 System.out.println("- " + watchEntry.getMovie().getTitle());
             }
         }
-        System.out.println();
+
+        ConsoleUtils.getEntry();
         setCurrentScreen(ConsoleAppScreen.MAIN_MENU);
     }
 
@@ -346,7 +348,8 @@ public class ConsoleApp {
                 System.out.printf("- (%s S%d E%d) %s\n", series.getTitle(), seriesSeason.getOrderNumber(), seriesEpisode.getOrderNumber(), seriesEpisode.getTitle());
             }
         }
-        System.out.println();
+
+        ConsoleUtils.getEntry();
         setCurrentScreen(ConsoleAppScreen.MAIN_MENU);
     }
 
@@ -354,7 +357,7 @@ public class ConsoleApp {
         app.addWatchedMovie(selectedMovie);
 
         System.out.printf("Playing movie: %s\n", selectedMovie.getTitle());
-        System.out.println("Press any key to stop playing...");
+        System.out.print("Press Enter to stop playing...");
         ConsoleUtils.getEntry();
 
         setCurrentScreen(ConsoleAppScreen.MAIN_MENU);
@@ -363,9 +366,9 @@ public class ConsoleApp {
     private void playSeriesEpisode() {
         app.addWatchedSeriesEpisode(selectedSeriesEpisode);
 
-        System.out.printf("Playing series: %s\n", selectedMovie.getTitle());
+        System.out.printf("Playing series: %s\n", selectedSeries.getTitle());
         System.out.printf("Season %d, episode %d: %s\n", selectedSeriesSeason.getOrderNumber(), selectedSeriesEpisode.getOrderNumber(), selectedSeriesEpisode.getTitle());
-        System.out.print("Press any key to stop playing...");
+        System.out.print("Press Enter to stop playing...");
         ConsoleUtils.getEntry();
 
         setCurrentScreen(ConsoleAppScreen.MAIN_MENU);

@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 
 import java.time.LocalDate;
 import java.util.Set;
+import java.util.SortedSet;
 import java.util.TreeSet;
 
 @Entity
@@ -17,16 +18,17 @@ public class Series {
     private LocalDate releaseDate;
     private String description;
 
-    @OneToMany(mappedBy = "series")
+    @OneToMany(mappedBy = "series", fetch = FetchType.EAGER)
+    @OrderBy("orderNumber")
     private Set<SeriesSeason> seasons = new TreeSet<>();
 
-    @ManyToMany(cascade = {CascadeType.ALL})
+    @ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
     @JoinTable(
             name = "series_categories",
             joinColumns = {@JoinColumn(name = "series")},
             inverseJoinColumns = {@JoinColumn(name = "category")}
     )
-    private Set<Category> categories = new TreeSet<>();
+    private SortedSet<Category> categories = new TreeSet<>();
 
     public int getId() {
         return id;
