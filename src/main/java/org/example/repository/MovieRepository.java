@@ -36,11 +36,11 @@ public class MovieRepository {
                 .list();
     }
 
-    public List<Movie> findMoviesByYear(Integer year){
+    public List<Movie> findMoviesByYear(Integer year) {
         var session = sessionFactory.openSession();
-        return session.createQuery( "FROM Movie m WHERE YEAR(m.releaseDate) = :year", Movie.class)
+        return session.createQuery("FROM Movie m WHERE YEAR(m.releaseDate) = :year", Movie.class)
                 .setParameter("year", year)
                 .list();
     }
-        
+
 }

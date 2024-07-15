@@ -26,7 +26,7 @@ public class Movie {
     )
     private Set<Category> categories = new HashSet<>();
 
-    @OneToMany(mappedBy = "film")
+    @OneToMany(mappedBy = "movie")
     private Set<WatchedMovie> watchedMovies;
 
     public int getId() {

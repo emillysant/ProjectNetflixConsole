@@ -21,4 +21,28 @@ public class WatchedSeries {
 
     @Column(name = "created_at")
     private LocalDateTime createdAt;
+
+    public int getId() {
+        return id;
+    }
+
+    public Profile getProfile() {
+        return profile;
+    }
+
+    public void setProfile(Profile profile) {
+        this.profile = profile;
+    }
+
+    public SeriesEpisode getSeriesEpisode() {
+        return seriesEpisode;
+    }
+
+    public void setSeriesEpisode(SeriesEpisode seriesEpisode) {
+        this.seriesEpisode = seriesEpisode;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
 }

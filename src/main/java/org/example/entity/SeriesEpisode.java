@@ -20,7 +20,7 @@ public class SeriesEpisode implements Comparable<SeriesEpisode> {
 
     private String title;
 
-    @OneToMany(mappedBy = "series")
+    @OneToMany(mappedBy = "seriesEpisode")
     private Set<WatchedSeries> watchedSeries;
 
     public int getId() {

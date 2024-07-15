@@ -1,8 +1,8 @@
 package org.example.repository;
 
+import jakarta.persistence.EntityExistsException;
 import org.example.entity.WatchedMovie;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
 
 import java.util.List;
 
@@ -14,24 +14,24 @@ public class WatchedMoviesRepository {
         this.sessionFactory = sessionFactory;
     }
 
-    public void addWatchedMovie(int profileId, int filmId){
+    public boolean create(WatchedMovie watchedMovie) {
         var session = sessionFactory.openSession();
-        Transaction tx = session.beginTransaction();
-        session.createNativeQuery(
-                        "INSERT INTO watched_films (profile, film) VALUES (:profileId, :filmId) ON CONFLICT DO NOTHING")
-                .setParameter("profileId", profileId)
-                .setParameter("filmId", filmId)
-                .executeUpdate();
-        tx.commit();
+
+        var tx = session.beginTransaction();
+        session.persist(watchedMovie);
+        try {
+            tx.commit();
+            return true;
+        } catch (EntityExistsException e) {
+            return false;
+        }
     }
 
-    public List<WatchedMovie> getWatchedMoviesForCurrentProfile(int profileId){
+    public List<WatchedMovie> findByProfileId(int profileId) {
         var session = sessionFactory.openSession();
 
-        return session.createQuery(
-                        "SELECT wm FROM WatchedMovie wm JOIN wm.profile p JOIN wm.movie m WHERE p.id = :profileId", WatchedMovie.class)
+        return session.createQuery("from WatchedMovie wm join wm.profile p join wm.movie m where p.id = :profileId order by wm.createdAt desc", WatchedMovie.class)
                 .setParameter("profileId", profileId)
                 .list();
     }
-
 }
