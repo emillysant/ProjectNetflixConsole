@@ -1,5 +1,8 @@
 package org.example.ui.tui;
 
+/**
+ * This enum represents different screens in a console-based movie and TV series application.
+ */
 public enum ConsoleAppScreen {
     STARTING,
     LOGIN,

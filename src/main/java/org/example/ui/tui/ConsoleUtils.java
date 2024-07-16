@@ -4,13 +4,29 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.function.Function;
 
+/**
+ * A utility class for handling console input and output.
+ */
 public class ConsoleUtils {
     private static final Scanner scanner = new Scanner(System.in);
 
+    /**
+     * Gets a choice from the user within a specified range.
+     *
+     * @param max The maximum value for the choice.
+     * @return The user's choice.
+     */
     public static int getChoice(int max) {
         return getChoice(0, max);
     }
 
+    /**
+     * Gets a choice from the user within a specified range.
+     *
+     * @param min The minimum value for the choice.
+     * @param max The maximum value for the choice.
+     * @return The user's choice.
+     */
     public static int getChoice(int min, int max) {
         for (; ; ) {
             try {
@@ -28,16 +44,32 @@ public class ConsoleUtils {
         }
     }
 
+    /**
+     * Gets an entry from the user without any validation.
+     */
     public static void getEntry() {
         Function<String, String> defaultValidator = (it) -> null;
         getEntry(null, defaultValidator);
     }
 
+    /**
+     * Gets an entry from the user with a default validation.
+     *
+     * @param description The description of the entry.
+     * @return The user's entry.
+     */
     public static String getEntry(String description) {
         Function<String, String> defaultValidator = (it) -> it.isEmpty() ? "Cannot be empty!" : null;
         return getEntry(description, defaultValidator);
     }
 
+    /**
+     * Gets an entry from the user with a custom validation.
+     *
+     * @param description The description of the entry.
+     * @param validator   The validation function.
+     * @return The user's entry.
+     */
     public static String getEntry(String description, Function<String, String> validator) {
         for (; ; ) {
             if (description != null) {
@@ -52,6 +84,15 @@ public class ConsoleUtils {
         }
     }
 
+    /**
+     * Gets an entry from the user with a custom validation and selection.
+     *
+     * @param description The description of the entry.
+     * @param selector    The selection function.
+     * @param validator   The validation function.
+     * @param <R>         The type of the entry.
+     * @return The user's entry.
+     */
     public static <R> R getEntry(String description, Function<String, R> selector, Function<R, String> validator) {
         for (; ; ) {
             System.out.printf("%s: ", description);
