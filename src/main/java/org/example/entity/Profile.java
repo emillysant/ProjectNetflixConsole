@@ -24,6 +24,9 @@ public class Profile {
     @OneToMany(mappedBy = "profile", cascade = CascadeType.ALL)
     private Set<WatchedMovie> watchedMovieSet;
 
+    @OneToMany(mappedBy = "profile", cascade = CascadeType.ALL)
+    private Set<WatchedSeries> watchedSeriesSet;
+
     /**
      * Returns the unique identifier of the profile.
      *
@@ -85,5 +88,9 @@ public class Profile {
      */
     public Set<WatchedMovie> getWatchedMovieSet() {
         return watchedMovieSet;
+    }
+
+    public Set<WatchedSeries> getWatchedSeriesSet() {
+        return watchedSeriesSet;
     }
 }
