@@ -7,13 +7,12 @@
 ![Badge em Desenvolvimento](http://img.shields.io/static/v1?label=STATUS&message=EM%20DESENVOLVIMENTO&color=GREEN&style=for-the-badge)
 
 ## Descrição do Projeto 🚀
-
 Este projeto faz parte da discilplina de Java Avançado da T-Academy. A Netflix Console Application é uma aplicação em Java que simula um sistema básico de gerenciamento de usuários, perfis e conteúdo (filmes e séries) similar ao da Netflix. Esta aplicação é executada via console e permite a interação do usuário com o sistema para realizar operações básicas de CRUD (Criar, Ler, Atualizar, Excluir) em diferentes entidades.
 
 ## Como usar
 - Clone a main do projeto
 - Suba o container
-- usuário para logar
+- Usuário para logar
   - Nome:leovano@example.com
   - Senha:1234
 ### Subindo container
@@ -21,6 +20,7 @@ Este projeto faz parte da discilplina de Java Avançado da T-Academy. A Netflix 
 
 ### Parando o container
 ```docker-compose down ```
+
 ## Funcionalidades
 - **Usuários**
   - Registro de novos usuários
@@ -58,7 +58,6 @@ Este projeto faz parte da discilplina de Java Avançado da T-Academy. A Netflix 
   - Visualizar lista de filmes e séries assistidos
 
 ## Estrutura do Projeto
-
 - **Entity**: Contém as classes de entidade que representam os dados do domínio.
 - **Repository**: Contém as classes que gerenciam a persistência de dados.
 - **Factory**: Contém a classe que fornece uma interface para criar objetos.
@@ -96,10 +95,15 @@ Este projeto faz parte da discilplina de Java Avançado da T-Academy. A Netflix 
 - Testada a aplicação manualmente para garantir a funcionalidade.
 
 ### Segunda-Feira
-- 
+- Implementar a funcionalidade de marcar filmes e séries como assistidos.
+- Refatorar o código para melhorar a organização, legibilidade e eficiência.
+- Implementação de séries e filmes assistidos.
+- Garantir que todas as classes e métodos estejam bem documentados.
+- Implementação do Hash com Argon2
+- Como usar no Readme.
+- Implementação de mais dados no BD.
 
 ## Tecnologias Utilizadas 🖥
-
 - Java
 - InteliJ IDEA
 - Maven
@@ -109,7 +113,5 @@ Este projeto faz parte da discilplina de Java Avançado da T-Academy. A Netflix 
 - Docker Compose
 
 ## Desenvolvedores 👩‍💻
-
 | [<img src="https://avatars.githubusercontent.com/u/13321466?v=4" width=115><br><sub>Eleuvano</sub>](https://github.com/leovano)  |  [<img src="https://avatars.githubusercontent.com/u/70452464?v=4" width=115><br><sub>Emilly Santiago</sub>](https://github.com/emillysant)  |  [<img src="https://user-images.githubusercontent.com/95758069/189210989-7918de13-6172-4c19-8a59-8a2b66e64e83.jpg" width=115><br><sub>Igor Monteiro</sub>](https://github.com/igorperonico)  |  [<img src="https://avatars.githubusercontent.com/u/98565751?v=4" width=115><br><sub>Douglas Queiroz</sub>](https://github.com/douglasliman)  |
 | :---: | :---: | :---: | :---: |
-
