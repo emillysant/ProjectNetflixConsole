@@ -5,6 +5,9 @@ import org.example.entity.*;
 
 import java.util.List;
 
+/**
+ * The main console application class that handles user interactions and manages the application's state.
+ */
 public class ConsoleApp {
     private final App app;
 
@@ -14,14 +17,27 @@ public class ConsoleApp {
     private SeriesSeason selectedSeriesSeason = null;
     private SeriesEpisode selectedSeriesEpisode = null;
 
+    /**
+     * Constructor for the ConsoleApp class.
+     *
+     * @param app The App instance that provides the application's functionality.
+     */
     public ConsoleApp(App app) {
         this.app = app;
     }
 
+    /**
+     * Sets the current screen of the application.
+     *
+     * @param currentScreen The new screen to set.
+     */
     public void setCurrentScreen(ConsoleAppScreen currentScreen) {
         this.currentScreen = currentScreen;
     }
 
+    /**
+     * The main loop of the application that handles user interactions and updates the application's state.
+     */
     public void run() {
         while (currentScreen != null) {
             switch (currentScreen) {
@@ -52,6 +68,12 @@ public class ConsoleApp {
         }
     }
 
+    /**
+     * Displays the starting screen of the console application.
+     * The screen provides options for logging in, registering, or quitting the application.
+     *
+     * @return void
+     */
     private void startingScreen() {
         System.out.println("1. Login");
         System.out.println("2. Register");
@@ -64,6 +86,14 @@ public class ConsoleApp {
         }
     }
 
+    /**
+     * Displays the registration screen of the console application.
+     * The screen prompts the user to enter their email and password.
+     * If the registration is successful, the user is logged in and redirected to the profile picker screen.
+     * If the registration fails due to an existing email or invalid email, an error message is displayed.
+     *
+     * @return void
+     */
     private void registerScreen() {
         for (; ; ) {
             var email = ConsoleUtils.getEntry("E-mail");
@@ -80,6 +110,14 @@ public class ConsoleApp {
         }
     }
 
+    /**
+     * Displays the login screen of the console application.
+     * The screen prompts the user to enter their email and password.
+     * If the login is successful, the user is redirected to the profile picker screen.
+     * If the login fails due to an invalid email or password, an error message is displayed.
+     *
+     * @return void
+     */
     private void loginScreen() {
         for (; ; ) {
             var email = ConsoleUtils.getEntry("E-mail");
@@ -95,6 +133,13 @@ public class ConsoleApp {
         }
     }
 
+    /**
+     * Displays the profile picker screen of the console application.
+     * The screen lists all available profiles for the logged-in user.
+     * The user can select a profile, create a new profile, or log out.
+     *
+     * @return void
+     */
     private void profilePickerScreen() {
         var profiles = app.getProfiles();
 
@@ -121,6 +166,7 @@ public class ConsoleApp {
         setCurrentScreen(ConsoleAppScreen.MAIN_MENU);
     }
 
+    
     private void createProfileScreen() {
         for (; ; ) {
             var profileName = ConsoleUtils.getEntry("Profile name");
@@ -330,6 +376,7 @@ public class ConsoleApp {
             }
         }
 
+        System.out.print("\nPress Enter to go back...");
         ConsoleUtils.getEntry();
         setCurrentScreen(ConsoleAppScreen.MAIN_MENU);
     }
@@ -349,6 +396,7 @@ public class ConsoleApp {
             }
         }
 
+        System.out.print("\nPress Enter to go back...");
         ConsoleUtils.getEntry();
         setCurrentScreen(ConsoleAppScreen.MAIN_MENU);
     }
